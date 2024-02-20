@@ -23,7 +23,7 @@ variable "client_secret" { type = string }
 module "port" {
 
   // Set the module source
-  source  = "github.com/J0hn-B/terraform-port-blueprint"
+  source  = "J0hn-B/blueprint/port" #checkov:skip=CKV_TF_1:Ensure Terraform module sources use a commit hash
   version = "~> 0.1"
 
   // Port API credentials used by hashicorp/http provider (required)
