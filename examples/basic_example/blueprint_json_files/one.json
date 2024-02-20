@@ -1,0 +1,10 @@
+{
+  "identifier": "minBlueprint",
+  "description": "This blueprint represents a basic blueprint",
+  "title": "Minimal Blueprint",
+  "icon": "Alert",
+  "schema": {},
+  "mirrorProperties": {},
+  "calculationProperties": {},
+  "relations": {}
+}
