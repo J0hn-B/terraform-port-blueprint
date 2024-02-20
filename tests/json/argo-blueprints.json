@@ -1,0 +1,403 @@
+[
+  {
+    "identifier": "cluster",
+    "description": "This blueprint represents a Kubernetes Cluster",
+    "title": "Cluster",
+    "icon": "Cluster",
+    "schema": {
+      "properties": {},
+      "required": []
+    },
+    "mirrorProperties": {},
+    "calculationProperties": {},
+    "relations": {}
+  },
+  {
+    "identifier": "node",
+    "description": "This blueprint represents a k8s Node",
+    "title": "Node",
+    "icon": "Node",
+    "schema": {
+      "properties": {
+        "creationTimestamp": {
+          "type": "string",
+          "icon": "DeployedAt",
+          "title": "Created",
+          "format": "date-time",
+          "description": "When the Node was created (added to the cluster)"
+        },
+        "labels": {
+          "type": "object",
+          "title": "Labels",
+          "description": "Labels of the Node"
+        },
+        "ready": {
+          "type": "string",
+          "title": "Node Readiness",
+          "description": "Node ready status",
+          "enum": ["True", "False"],
+          "enumColors": {
+            "False": "red",
+            "True": "green"
+          }
+        },
+        "totalMemory": {
+          "type": "string",
+          "icon": "GPU",
+          "title": "Total Memory (kibibytes)",
+          "description": "Total memory capacity of the Node"
+        },
+        "kubeletVersion": {
+          "type": "string",
+          "title": "Kubelet Version",
+          "description": "The node's kubelet version"
+        },
+        "totalCPU": {
+          "type": "string",
+          "icon": "CPU",
+          "title": "Total CPU (milli-cores)",
+          "description": "Total CPU capacity of the Node"
+        }
+      },
+      "required": []
+    },
+    "mirrorProperties": {},
+    "calculationProperties": {},
+    "relations": {
+      "Cluster": {
+        "title": "Cluster",
+        "target": "cluster",
+        "required": false,
+        "many": true
+      }
+    }
+  },
+  {
+    "identifier": "namespace",
+    "description": "This blueprint represents a k8s Namespace",
+    "title": "Namespace",
+    "icon": "Environment",
+    "schema": {
+      "properties": {
+        "creationTimestamp": {
+          "type": "string",
+          "title": "Created",
+          "format": "date-time",
+          "description": "When the Namespace was created"
+        },
+        "labels": {
+          "type": "object",
+          "title": "Labels",
+          "description": "Labels of the Namespace"
+        }
+      },
+      "required": []
+    },
+    "mirrorProperties": {},
+    "calculationProperties": {},
+    "relations": {
+      "Cluster": {
+        "title": "Cluster",
+        "description": "The namespace's Kubernetes cluster",
+        "target": "cluster",
+        "required": false,
+        "many": false
+      }
+    }
+  },
+  {
+    "identifier": "workload",
+    "description": "This blueprint represents a k8s Workload. This includes all k8s objects which can create pods (deployments[replicasets], daemonsets, statefulsets...)",
+    "title": "Workload",
+    "icon": "Deployment",
+    "schema": {
+      "properties": {
+        "availableReplicas": {
+          "type": "number",
+          "title": "Running Replicas",
+          "description": "Current running replica count"
+        },
+        "containers": {
+          "type": "array",
+          "title": "Containers",
+          "default": [],
+          "description": "The containers for each pod instance of the Workload"
+        },
+        "creationTimestamp": {
+          "type": "string",
+          "title": "Created",
+          "format": "date-time",
+          "description": "When the Workload was created"
+        },
+        "labels": {
+          "type": "object",
+          "title": "Labels",
+          "description": "Labels of the Workload"
+        },
+        "replicas": {
+          "type": "number",
+          "title": "Wanted Replicas",
+          "description": "Wanted replica count"
+        },
+        "strategy": {
+          "type": "string",
+          "title": "Strategy",
+          "description": "Rollout Strategy"
+        },
+        "hasPrivileged": {
+          "type": "boolean",
+          "title": "Has Privileged Container"
+        },
+        "hasLatest": {
+          "type": "boolean",
+          "title": "Has 'latest' tag",
+          "description": "Has Container with 'latest' as image tag"
+        },
+        "hasLimits": {
+          "type": "boolean",
+          "title": "All containers have limits"
+        },
+        "isHealthy": {
+          "type": "string",
+          "enum": ["Healthy", "Unhealthy"],
+          "enumColors": {
+            "Healthy": "green",
+            "Unhealthy": "red"
+          },
+          "title": "Workload Health"
+        },
+        "kind": {
+          "title": "Workload Kind",
+          "description": "The kind of Workload",
+          "type": "string",
+          "enum": ["StatefulSet", "DaemonSet", "Deployment", "ReplicaSet"]
+        },
+        "strategyConfig": {
+          "type": "object",
+          "title": "Strategy Config",
+          "description": "The workloads rollout strategy"
+        }
+      },
+      "required": []
+    },
+    "mirrorProperties": {
+      "Cluster": {
+        "title": "Cluster",
+        "path": "Namespace.Cluster.$title"
+      },
+      "namespace": {
+        "title": "Namespace",
+        "path": "Namespace.$title"
+      }
+    },
+    "calculationProperties": {},
+    "relations": {
+      "workloadManager": {
+        "title": "Manager",
+        "description": "A replicaset's workload. For example, Workload abc-ReplicaSet is managed by Workload xyz-Depolyment",
+        "target": "workload",
+        "required": false,
+        "many": false
+      },
+      "Namespace": {
+        "title": "Namespace",
+        "target": "namespace",
+        "required": false,
+        "many": false
+      }
+    }
+  },
+  {
+    "identifier": "pod",
+    "description": "This blueprint represents a k8s Pod",
+    "title": "Pod",
+    "icon": "Service",
+    "schema": {
+      "properties": {
+        "conditions": {
+          "type": "array",
+          "title": "Conditions",
+          "default": [],
+          "description": "Pod's conditions"
+        },
+        "labels": {
+          "type": "object",
+          "title": "Labels",
+          "description": "Labels of the Pod"
+        },
+        "phase": {
+          "type": "string",
+          "title": "Pod phase",
+          "description": "Pod's running phase"
+        },
+        "startTime": {
+          "type": "string",
+          "title": "Created",
+          "format": "date-time",
+          "description": "Pod's creation date"
+        }
+      },
+      "required": []
+    },
+    "mirrorProperties": {
+      "containers": {
+        "title": "Containers",
+        "path": "workload.containers"
+      },
+      "cluster": {
+        "title": "Cluster",
+        "path": "workload.Namespace.Cluster.$identifier"
+      },
+      "namespace": {
+        "title": "Namespace",
+        "path": "workload.Namespace.$title"
+      }
+    },
+    "calculationProperties": {},
+    "relations": {
+      "Node": {
+        "title": "Node",
+        "description": "The node the pod is running on",
+        "target": "node",
+        "required": false,
+        "many": false
+      },
+      "workload": {
+        "title": "Workload",
+        "description": "The workload responsible for the pod",
+        "target": "workload",
+        "required": false,
+        "many": false
+      }
+    }
+  },
+  {
+    "identifier": "argocdProject",
+    "description": "This blueprint ArgoCD Project",
+    "title": "ArgoCD Project",
+    "icon": "Argo",
+    "schema": {
+      "properties": {},
+      "required": []
+    },
+    "mirrorProperties": {
+      "Cluster": {
+        "title": "Cluster",
+        "path": "Namespace.Cluster.$title"
+      }
+    },
+    "calculationProperties": {},
+    "relations": {
+      "Namespace": {
+        "title": "Namespace",
+        "description": "The project's Namespace",
+        "target": "namespace",
+        "required": false,
+        "many": false
+      }
+    }
+  },
+  {
+    "identifier": "argocdRepo",
+    "description": "This blueprint represents a ArgoCD Repository",
+    "title": "ArgoCD Repository",
+    "icon": "Git",
+    "schema": {
+      "properties": {
+        "repoUrl": {
+          "type": "string",
+          "title": "Repository URL",
+          "format": "url",
+          "description": "The link to the repository"
+        },
+        "repoType": {
+          "type": "string",
+          "title": "Repository Type",
+          "description": "The repository type"
+        }
+      },
+      "required": []
+    },
+    "mirrorProperties": {},
+    "calculationProperties": {},
+    "relations": {
+      "Namespace": {
+        "target": "namespace",
+        "required": false,
+        "many": false
+      }
+    }
+  },
+  {
+    "identifier": "argocdApp",
+    "description": "This blueprint represents an Argo CD Application",
+    "title": "ArgoCD App",
+    "icon": "Deployment",
+    "schema": {
+      "properties": {
+        "syncPolicy": {
+          "type": "object",
+          "title": "Sync Policy",
+          "description": "Options for syncing the application with the Git repository"
+        },
+        "gitRepo": {
+          "type": "string",
+          "icon": "Git",
+          "title": "Repository URL",
+          "description": "The URL of the Git repository containing the application source code"
+        },
+        "gitPath": {
+          "type": "string",
+          "title": "Path",
+          "description": "The path within the Git repository where the application manifests are located"
+        },
+        "syncStatus": {
+          "type": "string",
+          "title": "Sync Status",
+          "description": "The sync status of the application"
+        },
+        "gitRev": {
+          "type": "string",
+          "title": "Target Revision",
+          "description": "The Git revision (branch, tag, or commit hash) to deploy"
+        }
+      },
+      "required": []
+    },
+    "mirrorProperties": {
+      "Cluster": {
+        "title": "Cluster",
+        "path": "destinationNamespace.Cluster.$title"
+      },
+      "Namespace": {
+        "title": "Namespace",
+        "path": "argocdProject.Namespace.$title"
+      },
+      "DestinationNamespace": {
+        "title": "Cluster",
+        "path": "destinationNamespace.$title"
+      }
+    },
+    "calculationProperties": {},
+    "relations": {
+      "destinationNamespace": {
+        "title": "Destination Namespace",
+        "target": "namespace",
+        "required": false,
+        "many": false
+      },
+      "argocdProject": {
+        "title": "Argo Project",
+        "target": "argocdProject",
+        "required": false,
+        "many": false
+      },
+      "workload": {
+        "title": "Workload",
+        "target": "workload",
+        "required": false,
+        "many": true
+      }
+    }
+  }
+]

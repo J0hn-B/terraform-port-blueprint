@@ -1,0 +1,17 @@
+version: "3"
+
+# Include the github actions tasks
+includes:
+  run: .github/Taskfile.yml
+
+tasks:
+  # Lint and validate code
+  add:
+    desc: |
+      Lint and validate code locally
+
+    cmds:
+      - task: run:lint
+      - task: run:checkov
+      - task: run:trivy
+      - task: run:diff

@@ -1,0 +1,14 @@
+{
+  "identifier": "basic_empty_blueprint",
+  "description": "This a basic empty blueprint created for test purposes",
+  "title": "basic-empty-blueprint",
+  "icon": "Microservice",
+  "schema": {
+    "properties": {},
+    "required": []
+  },
+  "mirrorProperties": {},
+  "calculationProperties": {},
+  "aggregationProperties": {},
+  "relations": {}
+}

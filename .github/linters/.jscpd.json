@@ -1,0 +1,4 @@
+{
+  "ignore": ["**/*_json_files/**"],
+  "absolute": true
+}
