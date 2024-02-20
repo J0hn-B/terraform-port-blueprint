@@ -76,7 +76,7 @@ variable "client_secret" { type = string }
 module "port" {
 
   # Module source
-  source = "github.com/J0hn-B/terraform-port-blueprint"
+  source = "J0hn-B/blueprint/port"
   version = "~> 0.1"
 
   # Port API credentials
@@ -150,7 +150,7 @@ data "github_repository_file" "lean_kubernetes_usecase_bps" {
 module "port" {
 
   // Set the module source
-  source = "github.com/J0hn-B/terraform-port-blueprint"
+  source = "J0hn-B/blueprint/port"
   version = "~> 0.1"
 
   // Port API credentials used by hashicorp/http provider

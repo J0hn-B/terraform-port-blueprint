@@ -43,8 +43,8 @@ data "github_repository_file" "lean_kubernetes_usecase_bps" {
 module "port" {
 
   // Set the module source
-  source  = "github.com/J0hn-B/terraform-port-blueprint"
-  version = "0.1.0"
+  source  = "J0hn-B/blueprint/port" #checkov:skip=CKV_TF_1:Ensure Terraform module sources use a commit hash
+  version = "~> 0.1"
 
   // Port API credentials used by hashicorp/http provider
   client_id     = var.client_id
