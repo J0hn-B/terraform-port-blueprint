@@ -1,0 +1,30 @@
+version: "3"
+
+tasks:
+  # # Scan with GH Super-Linter slim (local)
+
+  lint: # https://github.com/super-linter/super-linter
+    desc: "GitHub Super-Linter"
+    cmds:
+      - source .github/scripts/test.sh && gh_super_linter
+
+  # # Scan with Checkov (local)
+
+  checkov: # https://www.checkov.io/
+    desc: "Checkov, find cloud infra misconfigurations"
+    cmds:
+      - source .github/scripts/test.sh && checkov
+
+  # # Scan with Trivy (local)
+
+  trivy: # https://github.com/aquasecurity/trivy
+    desc: "Trivy security scanner"
+    cmds:
+      - source .github/scripts/test.sh && trivy
+
+  # # Show changed files (local)
+  diff:
+    desc: "Git diff to return changed files"
+    cmds:
+      - source .github/scripts/test.sh && get_changed_files
+    silent: true
