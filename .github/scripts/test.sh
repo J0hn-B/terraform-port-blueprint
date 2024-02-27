@@ -27,7 +27,8 @@ function checkov() {
         -v "$PWD":/tmp/lint --workdir /tmp/lint \
         bridgecrew/checkov \
         --directory /tmp/lint \
-        --quiet
+        --quiet \
+        --download-external-modules true
     echo
 }
 

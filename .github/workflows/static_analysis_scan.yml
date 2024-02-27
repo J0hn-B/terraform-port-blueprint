@@ -1,0 +1,63 @@
+---
+name: Static Analysis Scan
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+
+permissions: read-all
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # Add the super-linter env file to the GITHUB_ENV
+      - run: cat .github/super-linter.env >> "$GITHUB_ENV"
+
+      # Scan with GH Super-Linter slim
+      - name: Lint Code Base
+        uses: super-linter/super-linter@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BRANCH: main
+
+      # Scan with Checkov
+      - name: Checkov Scan
+        uses: bridgecrewio/checkov-action@master
+        with:
+          quiet: true
+          directory: .
+          output_format: cli,sarif
+          output_file_path: console,results.sarif
+          download_external_modules: true
+          prisma-api-url: https://api0.prismacloud.io
+
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v3
+        if: success() || failure()
+        with:
+          sarif_file: results.sarif
+
+      # Scan with Trivy
+      - name: Run Trivy vulnerability scanner in repo mode
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: "fs"
+          ignore-unfixed: true
+          format: "sarif"
+          output: "trivy-results.sarif"
+          severity: "CRITICAL,HIGH"
+          scanners: "vuln,misconfig,secret"
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: "trivy-results.sarif"
