@@ -16,6 +16,10 @@ The module will create the blueprints defined in the blueprint json schema follo
   - Second run of `terraform apply` will `add || update` the blueprints relations (if any)
     - Third run of `terraform apply` will `add || update` the blueprints mirrorProperties (if any)
 
+---
+
+[![Static Analysis Scan](https://github.com/J0hn-B/workflow/actions/workflows/static_analysis_scan.yml/badge.svg)](https://github.com/J0hn-B/workflow/actions/workflows/static_analysis_scan.yml)
+
 ## Examples
 
 [Basic Example Dir](/examples/basic_example/)

@@ -28,3 +28,10 @@ tasks:
     cmds:
       - source .github/scripts/test.sh && get_changed_files
     silent: true
+
+  # # Run nectos act
+  act:
+    desc: "Run nectos act"
+    dir: .github
+    cmds:
+      - act -C ../. -s GITHUB_TOKEN="$(gh auth token)"
