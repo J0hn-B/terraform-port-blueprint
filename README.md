@@ -18,7 +18,7 @@ The module will create the blueprints defined in the blueprint json schema follo
 
 ---
 
-[![Static Analysis Scan](https://github.com/J0hn-B/workflow/actions/workflows/static_analysis_scan.yml/badge.svg)](https://github.com/J0hn-B/workflow/actions/workflows/static_analysis_scan.yml)
+[![Static Analysis Scan](https://github.com/J0hn-B/terraform-port-blueprint/actions/workflows/static_analysis_scan.yml/badge.svg)](https://github.com/J0hn-B/terraform-port-blueprint/actions/workflows/static_analysis_scan.yml)
 
 ## Examples
 
