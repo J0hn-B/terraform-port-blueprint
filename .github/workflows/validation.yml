@@ -1,0 +1,42 @@
+---
+name: Terraform Providers and Plan Validation
+
+on:
+  push:
+    branches:
+      - main
+
+permissions: read-all
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        run: terraform init
+        working-directory: .
+
+      - name: Terraform Plan
+        run: terraform plan
+        env:
+          TF_VAR_client_id: ${{ secrets.PORT_CLIENT_ID }}
+          TF_VAR_client_secret: ${{ secrets.PORT_CLIENT_SECRET }}
+          working-directory: .
+
+      - name: Terraform Providers
+        run: |
+          {
+            echo ":hammer::wrench: Terraform Providers used in this plan:"
+            echo ""
+            < .terraform.lock.hcl awk '/provider/,/version/'
+          } >> "$GITHUB_STEP_SUMMARY"
+        working-directory: .
