@@ -63,7 +63,7 @@ terraform {
   required_providers {
     port = {
       source  = "port-labs/port-labs"
-      version = "~> 1.10.1"
+      version = ">= 1.10.1"
     }
   }
 }
@@ -81,7 +81,7 @@ module "port" {
 
   # Module source
   source = "J0hn-B/blueprint/port"
-  version = "~> 0.1"
+  version = ">= 0.1"
 
   # Port API credentials
   client_id     = var.client_id
@@ -119,11 +119,11 @@ terraform {
   required_providers {
     port = {
       source  = "port-labs/port-labs"
-      version = "~> 1.10.1"
+      version = ">= 1.10.1"
     }
     github = {
       source  = "integrations/github"
-      version = "~> 5.45.0"
+      version = ">= 5.45.0"
     }
   }
 }
@@ -155,7 +155,7 @@ module "port" {
 
   // Set the module source
   source = "J0hn-B/blueprint/port"
-  version = "~> 0.1"
+  version = ">= 0.1"
 
   // Port API credentials used by hashicorp/http provider
   client_id     = var.client_id
