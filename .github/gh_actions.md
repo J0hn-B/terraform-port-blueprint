@@ -106,4 +106,7 @@ act -j scan -s GITHUB_TOKEN="$(gh auth token)"
 
 # Run a job using a local env file
 act -j test --var-file .env
+
+# Run a job using a local .secrets file
+act -j test  --secret-file .secrets
 ```

@@ -23,14 +23,14 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
-        working-directory: .
+        working-directory: examples/basic_example
 
       - name: Terraform Plan
         run: terraform plan
         env:
           TF_VAR_client_id: ${{ secrets.PORT_CLIENT_ID }}
           TF_VAR_client_secret: ${{ secrets.PORT_CLIENT_SECRET }}
-          working-directory: .
+        working-directory: examples/basic_example
 
       - name: Terraform Providers
         run: |
@@ -39,4 +39,4 @@ jobs:
             echo ""
             < .terraform.lock.hcl awk '/provider/,/version/'
           } >> "$GITHUB_STEP_SUMMARY"
-        working-directory: .
+        working-directory: examples/basic_example
