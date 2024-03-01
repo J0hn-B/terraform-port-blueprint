@@ -36,4 +36,5 @@ terraform.rc
 
 # Ignore files described here:
 .env
+.secrets
 todo

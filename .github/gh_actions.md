@@ -95,3 +95,15 @@ task: Failed to run task "test": exit status 1
 
 Tests must pass before commit!
 ```
+
+---
+
+### Test the GitHub Actions tasks locally
+
+```bash
+# Run a job that needs access to gh token
+act -j scan -s GITHUB_TOKEN="$(gh auth token)"
+
+# Run a job using a local env file
+act -j test --var-file .env
+```
