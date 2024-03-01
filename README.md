@@ -27,7 +27,7 @@ The module will create the blueprints defined in the blueprint json schema follo
 
 <summary>Terraform Providers and Plan Validation:  each workflow run includes details about Terraform Providers.</summary>
 
-<img src="https://github.com/J0hn-B/port_demo/assets/40946247/9adb83a7-74aa-4ef1-a721-5ed01120b129" alt="image">
+<img src="https://github.com/J0hn-B/terraform-port-blueprint/assets/40946247/3fdd4471-6234-40da-bb24-a6b0938ae101" alt="image">
 <!-- markdownlint-enable -->
 ## </details>
 
