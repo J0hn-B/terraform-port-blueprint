@@ -20,6 +20,17 @@ The module will create the blueprints defined in the blueprint json schema follo
 
 [![Static Analysis Scan](https://github.com/J0hn-B/terraform-port-blueprint/actions/workflows/static_analysis_scan.yml/badge.svg)](https://github.com/J0hn-B/terraform-port-blueprint/actions/workflows/static_analysis_scan.yml) :anchor: [![Terraform Tests](https://github.com/J0hn-B/terraform-port-blueprint/actions/workflows/tests.yml/badge.svg)](https://github.com/J0hn-B/terraform-port-blueprint/actions/workflows/tests.yml)
 
+[![Terraform Providers and Plan Validation](https://github.com/J0hn-B/terraform-port-blueprint/actions/workflows/validation.yml/badge.svg)](https://github.com/J0hn-B/terraform-port-blueprint/actions/workflows/validation.yml) :ship:
+
+<!-- markdownlint-disable -->
+<details>
+
+<summary>Terraform Providers and Plan Validation:  each workflow run includes details about Terraform Providers.</summary>
+
+<img src="https://github.com/J0hn-B/port_demo/assets/40946247/9adb83a7-74aa-4ef1-a721-5ed01120b129" alt="image">
+<!-- markdownlint-enable -->
+## </details>
+
 ## Examples
 
 [Basic Example Dir](/examples/basic_example/)

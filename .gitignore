@@ -38,3 +38,4 @@ terraform.rc
 .env
 .secrets
 todo
+.external_modules
