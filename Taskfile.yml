@@ -15,9 +15,3 @@ tasks:
       - task: run:checkov
       - task: run:trivy
       - task: run:diff
-
-  # Validate and develop GitHub actions
-  act:
-    desc: Test GitHub actions
-    cmds:
-      - task: run:act
