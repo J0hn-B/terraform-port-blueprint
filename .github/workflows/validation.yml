@@ -2,9 +2,8 @@
 name: Terraform Providers and Plan Validation
 
 on:
-  push:
-    branches:
-      - main
+  schedule:
+    - cron: "30 23 * * 1-5"
 
 permissions: read-all
 
