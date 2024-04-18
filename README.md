@@ -66,6 +66,17 @@ touch main.tf
 
 ---
 
+> [!NOTE]
+> To access this module outside of the Terraform registry, replace:
+
+```diff
+  # Module source
+-  source = "J0hn-B/blueprint/port"
+-  version = ">= 0.1
+
++  source = "github.com/J0hn-B/terraform-port-blueprint?ref=v0.1.1
+```
+
 ```hcl
 //  main.tf  (basic example)
 
